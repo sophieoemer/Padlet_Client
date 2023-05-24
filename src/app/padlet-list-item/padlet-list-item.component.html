@@ -1,0 +1,12 @@
+<div *ngIf="authService.isLoggedOut() && padlet?.ispublic == 1 || authService.isLoggedIn()"
+     style="width: 300px; border: 2px solid #1d1d1d; border-radius: 5px; margin: 10px; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;"
+     class="content">
+  <div class="header">{{ padlet?.name }}</div>
+  <div>
+    <span *ngIf="padlet?.ispublic === 1">public</span>
+    <span *ngIf="padlet?.ispublic === 0">private</span>
+    <span *ngIf="padlet?.ispublic === 1">✅</span>
+    <span *ngIf="padlet?.ispublic === 0">🔒</span>
+  </div>
+</div>

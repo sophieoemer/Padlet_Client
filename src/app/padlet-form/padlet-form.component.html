@@ -1,0 +1,27 @@
+<h1 style="color: #1d1d1d; padding-left: 50px">Add/Edit Padlet</h1>
+<form class="ui large form black"[formGroup]="padletForm"
+      (ngSubmit)="submitForm()" style="padding-left: 50px;">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label>Title of Padlet</label>
+    <input formControlName="name">
+    <div *ngIf="errors['name']" class="ui negative message black"> {{
+      errors['name'] }} </div>
+  </div>
+
+  <div class="field">
+    <label *ngIf="authService.isLoggedIn()">make public?</label>
+<div>
+    <input type="radio" id="radio_is_public" name="is_public" [checked]="padlet.ispublic === 1 ? true: false" (click)="clickRadio(1)">
+    <label for="radio_is_public">public</label><br>
+</div>
+    <div>
+    <input *ngIf="authService.isLoggedIn()" type="radio" id="radio_is_not_public" name="is_public" [checked]="padlet.ispublic === 0 ? true: false" (click)="clickRadio(0)">
+    <label *ngIf="authService.isLoggedIn()" for="radio_is_not_public">private</label><br></div>
+
+  </div>
+  <button type="submit" class="ui button"
+          [disabled]="padletForm.invalid" style="background-color:#1d1d1d; color: #f3f2ee;">
+    Save Changes</button>
+
+</form>

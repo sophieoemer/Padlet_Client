@@ -1,0 +1,43 @@
+<div style="margin-left: 20px;">
+  <h1 style="color: #1d1d1d; margin-bottom: 20px;">Add/Edit entry</h1>
+  <form class="ui large form" [formGroup]="entryForm" (ngSubmit)="submitForm()" style="margin-top: 20px;">
+    <input type="hidden" formControlName="id">
+    <div class="field">
+      <label style="color: #1d1d1d;">Entry Text</label>
+      <input formControlName="textEntry" style="width: 100%;">
+      <div *ngIf="errors['textEntry']" class="ui negative message" style="margin-top: 10px; color: #1d1d1d;">{{errors['textEntry']}}</div>
+    </div>
+    <div *ngFor="let rating of entry?.ratings" style="margin-top: 10px;">
+      <div class="ui card" style="width: 200px; height: 150px; padding: 10px; background-color: #d1cac2;">
+        <div class="content">
+          <span class="header" style="font-size: 16px; color: #1d1d1d;">{{rating.comment}}</span>
+          <div style="display: inline-block; margin-top: 10px;">
+            <span class="rating-star" style="color: #1d1d1d;" *ngFor="let star of getRatingStars(rating.rating)">★</span>
+          </div>
+          <div class="meta" style="color: #1d1d1d; margin-top: 10px;">From User: {{rating.username}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="field" style="margin-top: 10px;">
+      <label style="color: #1d1d1d;">Add a Rating</label>
+      <div>
+        <!-- für alle Ratings dies schon gibt - ausgeben lassen -->
+        <div class="two wide field">
+          <input formControlName="rating" type="number" step="1" min="0" max="5" style="width: 100%;">
+        </div>
+        <div class="six wide field">
+          <input formControlName="comment" placeholder="Kommentartext" style="width: 100%;">
+        </div>
+      </div>
+      <div *ngIf="errors['ratings']" class="ui negative message" style="margin-top: 10px; color: #1d1d1d;">{{errors['ratings']}}</div>
+    </div>
+
+    <button type="submit" class="ui tiny green labeled icon button" [disabled]="entryForm.invalid"
+            style="margin-top: 20px; background-color: #d1cac2; color: #1d1d1d"> <i class="save icon"></i> Save changes
+    </button>
+    <button *ngIf="entry.id !== 0" class="ui tiny red labeled icon button" (click)="removeEntry()"
+            style="margin-top: 10px; background-color: darkred">
+      <i class="remove icon"></i> Delete Entry
+    </button>
+  </form>
+</div>

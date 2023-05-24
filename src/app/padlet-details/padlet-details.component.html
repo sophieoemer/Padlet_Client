@@ -1,0 +1,62 @@
+
+<body style="background-color: #d1cac2;">
+<div *ngIf="padlet" style="padding-left: 50px; display: flex; flex-direction: column;">
+  <h1 class="ui header centered" style="color: #1d1d1d">{{ padlet?.name }}</h1>
+  <div style="display: flex; flex-direction: column; align-items: flex-start;">
+    <div class="ui cards" style="margin-bottom: 20px;">
+      <div class="card" style="border: 2px solid #1d1d1d; background-color: #d1cac2;" *ngFor="let entry of padlet.entries" onmouseover="this.style.borderColor = '#f3f2ee';" onmouseout="this.style.borderColor = '#1d1d1d';">
+        <div class="content">
+          <div class="header" style="color: #1d1d1d;">{{ entry.textEntry }}</div>
+          <br>
+        </div>
+        <div *ngIf="authService.isLoggedIn() "class="extra content">
+          <a class="ui tiny brown labeled icon button"
+             style="margin-top: 10px; background-color: #1d1d1d; color: #f3f2ee;"
+             [routerLink]="['../../entries', entry.id]"
+             onmouseover="this.style.backgroundColor='#d1cac2'; this.style.outline='1px solid black';"
+             onmouseout="this.style.backgroundColor='#1d1d1d'; this.style.outline='none';">
+            <i class="edit icon"></i> Edit
+          </a>
+
+          <a *ngIf="authService.isLoggedIn()"class="ui tiny brown labeled icon button"
+             style="margin-top: 10px; background-color: #1d1d1d; color: #f3f2ee;"
+             [routerLink]="['../../entries', entry.id]"
+             onmouseover="this.style.backgroundColor='#d1cac2'; this.style.outline='1px solid black';"
+             onmouseout="this.style.backgroundColor='#1d1d1d'; this.style.outline='none';">
+            <i class="plus icon"></i> Add Comment
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <button [routerLink]="'/padlets'" class="ui tiny brown labeled icon button" style="background-color:#1d1d1d; color: #f3f2ee;">
+        <i class="left arrow icon"></i> Back to Padlets
+      </button>
+
+      <a *ngIf="authService.isLoggedIn()"class="ui tiny brown labeled icon button" [routerLink]="['../../admin', padlet.id]" style="background-color: #d1cac2; outline: 1px solid black;">
+        <i class="write icon"></i> Edit Padlet
+      </a>
+       <button *ngIf="authService.isLoggedIn()"class="ui tiny brown labeled icon button" (click)="removePadlet()" style="background-color: #8b0000;">
+         <i class="remove icon"></i> Delete Padlet
+       </button>
+
+       <div style="position: absolute; top: 150px; right: 50px;">
+         <a *ngIf="authService.isLoggedIn()" class="ui large labeled icon button"
+            [routerLink]="['../../entries']"
+            [queryParams]="{ padletId: padlet.id }"
+            onmouseover="this.style.backgroundColor='#d1cac2'; this.style.outline='1px solid black';"
+            onmouseout="this.style.backgroundColor=''; this.style.outline='none';"
+            style="background-color: #1d1d1d; color: #f3f2ee;">
+           <i class="plus icon"></i> Add Entry
+         </a>
+       </div>
+     </div>
+   </div>
+ </div>
+ </body>
+
+
+
+
+
